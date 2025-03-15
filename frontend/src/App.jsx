@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react'
 import CodeConsole from './components/CodeConsole'
 import './styles/App.css'
-
+import codleLogo from './assets/codle.png'
 function App() {
   const [showModal, setShowModal] = useState(true)
+  useEffect(() => {
+    document.title = "Codle"; 
+    const link = document.createElement('link');
+    link.rel = 'icon';
+    link.href = codleLogo; 
+    document.head.appendChild(link); 
+  }, []);
 
   return (
     <div className="app">
