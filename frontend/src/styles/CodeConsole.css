@@ -1,0 +1,185 @@
+.console-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.code-console {
+  width: 100%;
+  max-width: 800px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(76, 185, 231, 0.2);
+  color: white;
+}
+
+.challenge-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+
+.challenge-section h2 {
+  color: #FF6B35;
+  margin-bottom: 10px;
+}
+
+.test-case {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #333333;
+  color: #4CB9E7;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.code-input {
+  white-space: pre;
+  tab-size: 2;
+  width: 100%;
+  min-height: 200px;
+  padding: 12px;
+  border: 1px solid #4CB9E7;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  resize: vertical;
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.code-output {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  background-color: #2a2a2a;
+  border: 1px solid #4CB9E7;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+  color: white;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: bold;
+}
+
+button:first-child {
+  background-color: #FF6B35;
+  color: white;
+  box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+}
+
+button:first-child:hover {
+  background-color: #ff824f;
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
+}
+
+button:nth-child(2) {
+  background-color: #4CB9E7;
+  color: white;
+  box-shadow: 0 0 10px rgba(76, 185, 231, 0.2);
+}
+
+button:nth-child(2):hover {
+  background-color: #65c4eb;
+  box-shadow: 0 0 15px rgba(76, 185, 231, 0.3);
+}
+
+button:last-child {
+  background-color: #2a2a2a;
+  color: white;
+  border: 1px solid #FF6B35;
+  box-shadow: 0 0 10px rgba(255, 107, 53, 0.1);
+}
+
+button:last-child:hover {
+  background-color: #333333;
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.2);
+}
+
+.hints-container {
+  position: fixed;
+  left: 20px;
+  top: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hint-popup {
+  animation: fadeIn 0.2s ease-in;
+  width: 300px;
+}
+
+.hint-content {
+  background-color: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(76, 185, 231, 0.3);
+  border: 1px solid #4CB9E7;
+  max-width: 300px;
+  position: relative;
+}
+
+.hint-content h3 {
+  color: #4CB9E7;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.hint-content p {
+  color: white;
+  line-height: 1.4;
+  margin-right: 20px;
+}
+
+.hint-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #FF6B35;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.hint-close:hover {
+  color: #ff824f;
+}
+
+/* Add to existing fadeIn animation or create if not present */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

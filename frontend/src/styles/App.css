@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.app {
+  min-height: 100vh;
+  background-color: #656565;
+}
+
+.app-header {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: #1a1a1a;
+  color: white;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in forwards;
+  margin: 0;
+  width: 100%;
+}
+
+.logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.orange {
+  color: #FF6B35;
+  text-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+.blue {
+  color: #4CB9E7;
+  text-shadow: 0 0 10px rgba(76, 185, 231, 0.3);
+}
+
+.white {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+main {
+  padding: 1rem;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.modal {
+  background-color: #1a1a1a;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal h2 {
+  color: #FF6B35;
+  margin-bottom: 1rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.modal p {
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.instructions {
+  background-color: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.instructions h3 {
+  color: #4CB9E7;
+  margin-bottom: 1rem;
+}
+
+.instructions ul {
+  list-style-type: none;
+}
+
+.instructions li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.instructions li:before {
+  content: "•";
+  color: #FF6B35;
+  position: absolute;
+  left: 0;
+}
+
+.modal-button {
+  background-color: #FF6B35;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.modal-button:hover {
+  background-color: #ff824f;
+}
