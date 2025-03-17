@@ -8,6 +8,7 @@
 .app {
   min-height: 100vh;
   background-color: #656565;
+  overflow: auto;
 }
 
 .app-header {
@@ -141,4 +142,22 @@ main {
 
 .modal-button:hover {
   background-color: #ff824f;
+}
+
+.login-button {
+  background-color: #007bff; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding inside the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  position: absolute;
+  right: 40px;
+  top: 30px;
+  min-width: 100px;
+}
+
+.login-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }

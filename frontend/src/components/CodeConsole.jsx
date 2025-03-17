@@ -17,7 +17,7 @@ function CodeConsole() {
     hints: [
       "Remember to filter the numbers first",
       "You can use array methods like filter() and reduce()",
-      "Check if each number is greater than 0",
+      "Check if each number is greater than 0, use 'function' for your function type  ",
       "Try: array.filter(num => num > 0)",
       "Final hint: array.filter(num => num > 0).reduce((sum, num) => sum + num, 0)"
     ],
@@ -26,7 +26,18 @@ function CodeConsole() {
             .reduce((sum, num) => sum + num, 0);
 }`
   }
-
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab') {
+      event.preventDefault(); // Prevent the default tab behavior
+      // Insert a tab character or spaces
+      const { selectionStart, selectionEnd } = event.target;
+      const value = event.target.value;
+      const newValue = value.substring(0, selectionStart) + '\t' + value.substring(selectionEnd);
+      event.target.value = newValue;
+      // Move the cursor to the right position
+      event.target.selectionStart = event.target.selectionEnd = selectionStart + 1;
+    }
+  };
   const checkSolution = () => {
     try {
       const testFunction = new Function('return ' + input)();
@@ -91,6 +102,7 @@ function CodeConsole() {
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Write your code here..."
             className="code-input"
           />
