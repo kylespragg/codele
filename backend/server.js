@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const challengeRoutes = require('./routes/dailychallenges');
+require('dotenv').config();
 
 const app = express();
 const port = 5000;
@@ -11,8 +12,11 @@ const port = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
+const uri = process.env.MONGODB_URI;
+
+console.log("Uri = ", uri)
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/your_database_name', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
