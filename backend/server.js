@@ -14,7 +14,6 @@ app.use(bodyParser.json());
 
 const uri = process.env.MONGODB_URI;
 
-console.log("Uri = ", uri)
 // Connect to MongoDB
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
