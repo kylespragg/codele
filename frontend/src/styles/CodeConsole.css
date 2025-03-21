@@ -16,6 +16,40 @@
   color: white;
 }
 
+.language-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #1a1a1a; /* Background color for the selector */
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Base button styles */
+.language-selector button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  color: white; /* Default text color */
+  background-color: #444; /* Default background color */
+  box-shadow: 0 0 10px rgba(76, 185, 231, 0.2);
+  border-color: #FF6B35;
+}
+
+/* Active state styles */
+.language-selector button.active {
+  background-color: #FF6B35; /* Active background color */
+  box-shadow: none; /* Remove shadow for active button */
+}
+
+
+/* Specific hover effect for active button */
+.language-selector button.active:hover {
+  background-color: #ff824f; /* Lighter orange on hover */
+}
+
 .challenge-section {
   margin-bottom: 20px;
   padding: 15px;
@@ -38,16 +72,14 @@
 }
 
 .code-input {
-  white-space: pre;
-  tab-size: 2;
   width: 100%;
-  min-height: 200px;
+  min-height: 100px;
   padding: 12px;
+  background-color: #2a2a2a;
   border: 1px solid #4CB9E7;
   border-radius: 4px;
-  font-family: 'Courier New', Courier, monospace;
-  resize: vertical;
-  background-color: #2a2a2a;
+  font-family: 'Fira', monospace;
+  white-space: pre-wrap;
   color: white;
 }
 
@@ -80,25 +112,15 @@ button {
 }
 
 button:first-child {
-  background-color: #FF6B35;
+  background-color: #2a2a2a;
   color: white;
   box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+  border: 1px solid #FF6B35;
 }
 
 button:first-child:hover {
-  background-color: #ff824f;
+  background-color: #333333;
   box-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
-}
-
-button:nth-child(2) {
-  background-color: #4CB9E7;
-  color: white;
-  box-shadow: 0 0 10px rgba(76, 185, 231, 0.2);
-}
-
-button:nth-child(2):hover {
-  background-color: #65c4eb;
-  box-shadow: 0 0 15px rgba(76, 185, 231, 0.3);
 }
 
 button:last-child {

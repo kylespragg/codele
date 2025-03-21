@@ -11,17 +11,48 @@
   overflow: auto;
 }
 
+/* styles/App.css */
+
+/* styles/App.css */
+
 .app-header {
   padding: 1.5rem;
   text-align: center;
-  background-color: #1a1a1a;
+  background: linear-gradient(45deg, #1a1a1a, #333333); /* Subtle gradient */
   color: white;
-  opacity: 0;
-  animation: fadeIn 0.8s ease-in forwards;
   margin: 0;
   width: 100%;
+  position: relative; /* For the texture overlay */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Softer shadow effect */
+  /* Add glow effect at the bottom */
+  box-shadow: 0 4px 10px rgba(255, 107, 53, 0.5), 0 4px 20px rgba(76, 185, 231, 0.5); /* Orange and blue glow */
 }
 
+/* Optional texture overlay */
+.app-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('path/to/texture.png') repeat; /* Optional subtle texture image */
+  opacity: 0.05; /* Very subtle texture */
+  z-index: -1; /* Place it behind the header content */
+}
+
+/* Optional texture overlay */
+.app-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('path/to/texture.png') repeat; /* Optional subtle texture image */
+  opacity: 0.05; /* Very subtle texture */
+  z-index: -1; /* Place it behind the header content */
+}
 .logo-text {
   font-family: 'Orbitron', sans-serif;
   font-size: 3.5rem;
@@ -160,4 +191,45 @@ main {
 
 .login-button:hover {
   background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Add these to your existing App.css */
+
+.user-menu {
+  position: absolute;
+  right: 40px;
+  top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.username {
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.admin-badge {
+  background: #FF6B35;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.logout-button {
+  background-color: #4CB9E7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Orbitron', sans-serif;
+  min-width: 100px;
+}
+
+.logout-button:hover {
+  background-color: #3a8fb3;
 }

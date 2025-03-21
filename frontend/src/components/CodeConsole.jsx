@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../styles/CodeConsole.css'
 
 function CodeConsole() {
@@ -6,64 +6,88 @@ function CodeConsole() {
   const [output, setOutput] = useState('')
   const [hintIndex, setHintIndex] = useState(0)
   const [showHint, setShowHint] = useState(false)
-  const [shownHints, setShownHints] = useState([]);  // New state to track shown hints
+  const [shownHints, setShownHints] = useState([])
+  const [dailyChallenge, setDailyChallenge] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [selectedLanguage, setSelectedLanguage] = useState('python');
 
+  // Fetch challenge when component mounts
+  useEffect(() => {
+    fetchDailyChallenge();
+  }, []);
 
-  // Hard-coded challenge data (you can move this to a separate file later)
-  const dailyChallenge = {
-    prompt: "Write a function that takes an array of numbers and returns the sum of all positive numbers.",
-    expectedOutput: "8",
-    testCase: "[1, -4, 7, -2]",
-    hints: [
-      "Remember to filter the numbers first",
-      "You can use array methods like filter() and reduce()",
-      "Check if each number is greater than 0, use 'function' for your function type  ",
-      "Try: array.filter(num => num > 0)",
-      "Final hint: array.filter(num => num > 0).reduce((sum, num) => sum + num, 0)"
-    ],
-    solution: `function sumPositive(arr) {
-  return arr.filter(num => num > 0)
-            .reduce((sum, num) => sum + num, 0);
-}`
-  }
+  const fetchDailyChallenge = async () => {
+    try {
+      const response = await fetch('/api/challenges/daily');
+      if (!response.ok) {
+        throw new Error('Failed to fetch challenge');
+      }
+      const challenge = await response.json();
+      setDailyChallenge(challenge);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching challenge:', error);
+      // Fallback to hardcoded challenge if fetch fails
+      setDailyChallenge({
+        prompt: "Write a function that takes an array of numbers and returns the sum of all positive numbers.",
+        expectedOutput: "8",
+        testCase: "[1, -4, 7, -2]",
+        hints: [
+          "Remember to filter the numbers first",
+          "You can use array methods like filter() and reduce()",
+          "Check if each number is greater than 0, use 'function' for your function type  ",
+          "Try: array.filter(num => num > 0)",
+          "Final hint: array.filter(num => num > 0).reduce((sum, num) => sum + num, 0)"
+        ],
+        solution: `function sumPositive(arr) {
+          return arr.filter(num => num > 0)
+                    .reduce((sum, num) => sum + num, 0);
+        }`
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleKeyDown = (event) => {
     if (event.key === 'Tab') {
-      event.preventDefault(); // Prevent the default tab behavior
-      // Insert a tab character or spaces
+      event.preventDefault();
       const { selectionStart, selectionEnd } = event.target;
       const value = event.target.value;
       const newValue = value.substring(0, selectionStart) + '\t' + value.substring(selectionEnd);
       event.target.value = newValue;
-      // Move the cursor to the right position
       event.target.selectionStart = event.target.selectionEnd = selectionStart + 1;
     }
   };
-  const checkSolution = () => {
-    try {
-      const testFunction = new Function('return ' + input)();
-      const testArray = eval(dailyChallenge.testCase);
-      const result = testFunction(testArray).toString();
 
-      if (result === dailyChallenge.expectedOutput) {
-        setOutput('Congratulations! Your solution is correct! 🎉');
-        setShowHint(false);
-      } else {
-        setOutput(`Expected: ${dailyChallenge.expectedOutput}\nGot: ${result}`);
-        if (hintIndex < dailyChallenge.hints.length) {
-          setShowHint(true);
-          setShownHints(prev => [...prev, dailyChallenge.hints[hintIndex]]);
-          setHintIndex(prev => prev + 1);
+  const checkSolution = async () => {
+    try {
+        const response = await fetch('/api/challenges/check', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                code: input,
+                language: selectedLanguage,
+                challengeId: dailyChallenge._id
+            }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            setOutput(result.output); // Set the output from the backend
+            if (result.success) {
+                // Optionally handle success (e.g., show a success message)
+            }
+        } else {
+            setOutput('Error: ' + result.error); // Handle errors
         }
-      }
     } catch (error) {
-      setOutput('Error executing code: ' + error.message);
-      if (hintIndex < dailyChallenge.hints.length) {
-        setShowHint(true);
-        setShownHints(prev => [...prev, dailyChallenge.hints[hintIndex]]);
-        setHintIndex(prev => prev + 1);
-      }
+        setOutput('Error executing code: ' + error.message);
     }
-  };
+};
 
   const handleClear = () => {
     setInput('');
@@ -73,20 +97,13 @@ function CodeConsole() {
     setHintIndex(0);
   };
 
-  const showSolution = () => {
-    setInput(dailyChallenge.solution);
-    setShowHint(false);
+  if (isLoading) {
+    return <div className="console-container">Loading challenge...</div>;
   }
 
-  const showHintPopup = (e) => {
-    e.preventDefault();
-    const buttonRect = e.target.getBoundingClientRect();
-    setHintPosition({
-      x: buttonRect.left,
-      y: buttonRect.bottom + window.scrollY + 10
-    });
-    setShowHint(true);
-  };
+  if (!dailyChallenge) {
+    return <div className="console-container">No challenge available</div>;
+  }
 
   return (
     <div className="console-container">
@@ -96,7 +113,20 @@ function CodeConsole() {
           <p>{dailyChallenge.prompt}</p>
           <p className="test-case">Test case: {dailyChallenge.testCase}</p>
         </div>
-
+        <div className="language-selector">
+          <button 
+              className={selectedLanguage === 'javascript' ? 'active' : ''}
+              onClick={() => setSelectedLanguage('javascript')}
+          >
+              JavaScript
+          </button>
+          <button 
+              className={selectedLanguage === 'python' ? 'active' : ''}
+              onClick={() => setSelectedLanguage('python')}
+          >
+              Python
+          </button>
+        </div>
         <div className="input-section">
           <h3>Your Solution</h3>
           <textarea
@@ -131,13 +161,13 @@ function CodeConsole() {
         <div className="button-container">
           <button onClick={checkSolution}>Submit</button>
           <button onClick={handleClear}>Clear</button>
-          {hintIndex >= dailyChallenge.hints.length && (
+          {hintIndex >= (dailyChallenge.hints?.length || 0) && (
             <button onClick={showSolution}>Show Solution</button>
           )}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default CodeConsole
+export default CodeConsole;
